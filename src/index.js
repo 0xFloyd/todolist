@@ -2,7 +2,9 @@ import {
     Project,
     toDoItem
 } from './toDoItems'
-
+import {
+    format,
+} from 'date-fns'
 import {newTaskDiv} from './newTaskDiv.js';
 
 const addProjectTask = (e) => {
@@ -11,6 +13,7 @@ const addProjectTask = (e) => {
     let taskTitle = submitForm.elements[0].value;
     let taskDescription = submitForm.elements[1].value;
     let taskDate = submitForm.elements[2].value;
+    format(taskDate, 'M/D/YY');
     let taskPriority = submitForm.elements[3].value;
     
     console.log(taskTitle, taskDescription, taskDate, taskPriority);
