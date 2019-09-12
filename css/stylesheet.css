@@ -54,10 +54,13 @@ p {
     
 }
 
-#completedTasks {
+.completedTasks {
     text-decoration: line-through;
-    color: red !important;
 
+}
+
+.currentTasks {
+    text-decoration: none;
 }
 
 #completedTasksTitle {
