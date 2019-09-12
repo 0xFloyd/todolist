@@ -8,6 +8,7 @@ const newTaskDiv = (title, description, date, priority) => {
 
     let taskCheckboxDiv = document.createElement('div');
     let taskCheckBox = document.createElement('input');
+    taskCheckBox.className="checkbox";
 
     taskCheckboxDiv.className = "col-1 align-self-center";
     $(taskCheckBox).attr({

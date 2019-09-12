@@ -2,7 +2,7 @@
 import {newTaskDiv} from './newTaskDiv.js';
 import {newProject} from './newProject.js';
 
-let currentProject = newProject('Project1');
+let currentProject = newProject('Default');
 let allProjects = [];
 allProjects.push(currentProject);
 
@@ -46,7 +46,31 @@ const addProject = (e) => {
 };
 
 
+const checkBoxClicked = (e) => {
+    let currentTaskListTitle = document.getElementById("currentTasksTitle");
+    let completedTaskListTitle = document.getElementById("completedTasksTitle");
+    let taskDiv = (e.target.parentNode.parentNode);
+    completedTaskListTitle.appendChild(taskDiv);
+    if (e.target.checked) {
+        completedTaskListTitle.appendChild(taskDiv);
+        taskDiv.setAttribute("style", "text-decoration: line-through;");
 
+    };
+    if (!e.target.checked) {
+        currentTaskListTitle.appendChild(taskDiv);
+        taskDiv.setAttribute("style", "text-decoration: none");
+    }
+    
+
+};
+
+let allCheckboxes = document.getElementsByClassName("checkbox");
+console.log(allCheckboxes);
+for (let i = 0; i <= allCheckboxes.length; i++) {
+    if (allCheckboxes[i]) {
+        allCheckboxes[i].addEventListener('click', checkBoxClicked);
+    }
+}
 
 let submitForm = document.getElementById('formSubmit');
 submitForm.addEventListener('submit', addProjectTask);
