@@ -1,25 +1,22 @@
-import {
-    Project,
-    toDoItem
-} from './toDoItems'
-import {
-    format,
-} from 'date-fns'
+//import {moment, format} from 'moment';
 import {newTaskDiv} from './newTaskDiv.js';
+import {newProject} from './newProject.js';
+
+let currentProject = newProject('Project1');
+let allProjects = [];
+allProjects.push(currentProject);
+
 
 const addProjectTask = (e) => {
     e.preventDefault();
-    
+    console.log("did this work");
     let taskTitle = submitForm.elements[0].value;
     let taskDescription = submitForm.elements[1].value;
     let taskDate = submitForm.elements[2].value;
-    format(taskDate, 'M/D/YY');
     let taskPriority = submitForm.elements[3].value;
-    
-    console.log(taskTitle, taskDescription, taskDate, taskPriority);
-    
     newTaskDiv(taskTitle, taskDescription, taskDate, taskPriority);
     submitForm.reset();
+    $('#addTaskModal').modal('hide');
     return {taskTitle,
         taskDescription,
         taskDate,
@@ -27,8 +24,35 @@ const addProjectTask = (e) => {
     }
 };
 
+const addProject = (e) => {
+    e.preventDefault();
+    let projectTitle = newProjectSubmit.elements[0].value;
+    let temporaryProject = newProject(projectTitle);
+    allProjects.push(temporaryProject);
+    newProjectSubmit.reset();
+    let projectDropdownList = document.getElementById("dropDownMenuList");
+    let dropdownMenuButton = document.getElementById("dropdownMenuButton");
+    let newProjectToAdd = document.createElement('a');
+    newProjectToAdd.innerHTML = projectTitle;
+    dropdownMenuButton.innerHTML = projectTitle;
+    newProjectToAdd.className = "dropdown-item";
+    projectDropdownList.appendChild(newProjectToAdd);
+    $('#newProjectModal').modal('hide');
+    console.log(allProjects);
+    return {
+        projectTitle,
+        temporaryProject
+    }
+};
+
+
+
+
 let submitForm = document.getElementById('formSubmit');
 submitForm.addEventListener('submit', addProjectTask);
+
+let addProjectSubmit = document.getElementById('newProjectSubmit');
+addProjectSubmit.addEventListener('submit', addProject);
 
 $(function () {
     $('[data-toggle="popover"]').popover()
@@ -37,50 +61,3 @@ $('.popover-dismiss').popover({
     trigger: 'focus'
 })
 
-
-/*
-import { renderHome } from './home'
-import { renderContact } from './contact'
-import { renderMenu } from './menu'
-
-
-const pageHeader = (() => {
-    let pageDocument = document.getElementById("pageDocument");
-    let navList = document.createElement('ul');
-    let pageHeader = document.createElement('div');
-    let pageHeaderTitle = document.createElement('h1');
-    let mainContent = document.createElement('div');
-
-    navList.className = 'nav nav-tabs';
-    navList.setAttribute('id', 'tabList');
-    mainContent.setAttribute('id', 'content');
-    pageHeader.className = 'pageHeader';
-    pageHeaderTitle.className = "pageHeaderTitle";
-    pageHeaderTitle.innerHTML = "Cicero Country Pizza";
-
-    pageHeader.appendChild(pageHeaderTitle);
-    pageDocument.appendChild(pageHeader);
-    pageDocument.appendChild(navList);
-    pageDocument.appendChild(mainContent);
-
-    
- 
-
-
-
-
-    return {
-        pageHeader,
-        pageDocument,
-        pageHeaderTitle,
-        mainContent,
-        navList
-    }
-
-})();
-
-renderHome();
-renderContact();
-renderMenu();
-
-   */

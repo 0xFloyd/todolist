@@ -53,3 +53,17 @@ p {
     font-style: bold;
     
 }
+
+#completedTasks {
+    text-decoration: line-through;
+    color: red !important;
+
+}
+
+#completedTasksTitle {
+    margin-top: 20px;
+}
+
+#currentTasksTitle {
+    margin-top: 10px;
+}
