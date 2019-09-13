@@ -2,10 +2,11 @@
 import {newTaskDiv} from './newTaskDiv.js';
 import {newProject} from './newProject.js';
 
-let currentProject = newProject('Default');
+let currentProject = "Project 1";
 let allProjects = [];
-allProjects.push(currentProject);
-
+//allProjects.push(currentProject);
+let activeDisplayedProject = document.getElementById("activeProject");
+//activeDisplayedProject.innerHTML = currentProject;
 
 const addProjectTask = (e) => {
     e.preventDefault();
@@ -31,19 +32,20 @@ const addProject = (e) => {
     allProjects.push(temporaryProject);
     newProjectSubmit.reset();
     let projectDropdownList = document.getElementById("dropDownMenuList");
-    let dropdownMenuButton = document.getElementById("dropdownMenuButton");
+    activeDisplayedProject.innerHTML = projectTitle;
     let newProjectToAdd = document.createElement('a');
+    newProjectToAdd.addEventListener('click', changeActiveProject);
     newProjectToAdd.innerHTML = projectTitle;
-    dropdownMenuButton.innerHTML = projectTitle;
     newProjectToAdd.className = "dropdown-item";
     projectDropdownList.appendChild(newProjectToAdd);
     $('#newProjectModal').modal('hide');
-    console.log(allProjects);
+    //console.log(allProjects);
     return {
         projectTitle,
         temporaryProject
     }
 };
+
 
 
 const checkBoxClicked = (e) => {
@@ -72,11 +74,20 @@ for (let i = 0; i <= allCheckboxes.length; i++) {
     }
 }
 
+const changeActiveProject = (e) => {
+    activeDisplayedProject.innerHTML = e.target.innerHTML;
+}
+
+
 let submitForm = document.getElementById('formSubmit');
 submitForm.addEventListener('submit', addProjectTask);
 
 let addProjectSubmit = document.getElementById('newProjectSubmit');
 addProjectSubmit.addEventListener('submit', addProject);
+
+let defaultStarterProject = document.getElementById("defaultStarterProject");
+defaultStarterProject.addEventListener('click', changeActiveProject);
+activeDisplayedProject.innerHTML = defaultStarterProject.innerHTML;
 
 $(function () {
     $('[data-toggle="popover"]').popover()
