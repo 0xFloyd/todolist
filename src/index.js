@@ -5,7 +5,7 @@ import {clearTasks} from './clearTasks.js';
 
 let projects = [];
 let todos = [];
-let currentProject = newProject("Default Project");
+let currentProject = newProject("Project 1");
 currentProject = currentProject.projectID.slice(7);
 //allProjects.push(currentProject);
 let activeDisplayedProject = document.getElementById("activeProject");
@@ -16,6 +16,7 @@ const addProjectTask = (e) => {
     let taskTitle = submitForm.elements[0].value;
     let taskDescription = submitForm.elements[1].value;
     let taskDate = submitForm.elements[2].value;
+    taskDate = formatDate(taskDate);
     let taskPriority = submitForm.elements[3].value;
     let todoArray = [taskTitle,
         taskDescription, taskDate, taskPriority, currentProject];
@@ -62,16 +63,26 @@ const checkBoxClicked = (e) => {
     let currentTaskListTitle = document.getElementById("allTasksContainer");
     let completedTaskListTitle = document.getElementById("completedTasks");
     let taskDiv = (e.target.parentNode.parentNode);
-    completedTaskListTitle.appendChild(taskDiv);
+    let testDiv = e.target.parentNode.parentNode.children[1].firstChild.innerHTML;      //complicated way to return task name from task checkbox that was clicked 
+    let checkbox = e.target.parentNode.parentNode.children[0].firstChild;
+    checkbox.setAttribute('disabled', true);
+    for (let i = 0; i < todos.length; i++) {
+        if (testDiv == todos[i][0]) {
+            todos.splice(i, 1);
+        }
+    };
+
     if (e.target.checked) {
         completedTaskListTitle.appendChild(taskDiv);
         taskDiv.setAttribute("style", "text-decoration: line-through;");
     };
 
+    /*
     if (!e.target.checked) {
         currentTaskListTitle.appendChild(taskDiv);
         taskDiv.setAttribute("style", "text-decoration: none");
-    }
+    }*/
+
 };
 
 const addCheckBoxEventListener = () => {
@@ -103,7 +114,7 @@ submitForm.addEventListener('submit', addProjectTask);
 let addProjectSubmit = document.getElementById('newProjectSubmit');
 addProjectSubmit.addEventListener('submit', addProject);
 
-let defaultStarterProject = document.getElementById("projectDefault Project");
+let defaultStarterProject = document.getElementById("projectProject 1");
 defaultStarterProject.addEventListener('click', changeActiveProjectDisplayed);
 activeDisplayedProject.innerHTML = defaultStarterProject.innerHTML;
 
@@ -116,3 +127,9 @@ $('.popover-dismiss').popover({
     trigger: 'focus'
 })
 
+const formatDate = (date) => {
+    let newDate = date.split('-');
+    newDate[0] = newDate[0].substring(2);
+    newDate = newDate[1] + '/' + newDate[2] + '/' + newDate[0];
+    return newDate;
+};
