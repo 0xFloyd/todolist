@@ -1,8 +1,14 @@
-const newProject = (projectName) => {
+const newProject = (projectTitle) => {
     let currentTasks = [];
     let completedTasks = [];
+    let projectID = `project${projectTitle}`;
 
-    return {projectName, currentTasks, completedTasks}
+    return {
+        projectTitle,
+        currentTasks,
+        completedTasks,
+        projectID
+    }
 };
 
 export {newProject}

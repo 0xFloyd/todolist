@@ -1,8 +1,8 @@
 //script for creating the DOM element for a new task
 
-const newTaskDiv = (title, description, date, priority) => {
+const newTaskDiv = (title, description, date, priority, currentProject) => {
     let allTasks = document.getElementById("allTasksContainer");
-
+    let taskProject = currentProject;
     let taskRow = document.createElement('div');
     taskRow.className = "row taskRow";
 
@@ -62,11 +62,10 @@ const newTaskDiv = (title, description, date, priority) => {
         taskRow,
         taskTitle,
         taskTitleContainer,
-        taskCheckboxDiv
+        taskCheckboxDiv,
+        taskProject
     }
 
 };
 
-export {
-    newTaskDiv
-}
+export {newTaskDiv}
