@@ -7,7 +7,9 @@ let projects = [];
 let todos = [];
 let currentProject = newProject("Project 1");
 currentProject = currentProject.projectID.slice(7);
+console.log(currentProject)
 projects.push(currentProject);
+console.log(projects);
 let activeDisplayedProject = document.getElementById("activeProject");
 //activeDisplayedProject.innerHTML = currentProject;
 
@@ -53,7 +55,9 @@ const addProject = (e) => {
     $('#newProjectModal').modal('hide');
     currentProject = temporaryProject.projectID;
     currentProject = currentProject.slice(7);
+    console.log(currentProject);
     projects.push(currentProject);
+    console.log(projects);
     clearTasks();
     return {
         projectTitle,
@@ -102,13 +106,16 @@ const changeActiveProjectDisplayed = (e) => {
     currentProject = elementIDTitle;
     activeDisplayedProject.innerHTML = elementIDTitle;
     clearTasks();
-    console.log(elementIDTitle);
+    console.log(currentProject);
     for (let i = 0; i < todos.length; i++) {
         if (elementIDTitle == todos[i][4]) {
             newTaskDiv(todos[i][0], todos[i][1], todos[i][2], todos[i][3], todos[i][4]);
         }
     }
     addCheckBoxEventListener();
+    return {
+        currentProject
+    }
 };
 
 let submitForm = document.getElementById('formSubmit');
