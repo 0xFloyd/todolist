@@ -106,7 +106,6 @@ const changeActiveProjectDisplayed = (e) => {
     addCheckBoxEventListener();
 };
 
-
 let submitForm = document.getElementById('formSubmit');
 submitForm.addEventListener('submit', addProjectTask);
 
@@ -117,6 +116,7 @@ let defaultStarterProject = document.getElementById("projectProject 1");
 defaultStarterProject.addEventListener('click', changeActiveProjectDisplayed);
 activeDisplayedProject.innerHTML = defaultStarterProject.innerHTML;
 
+newTaskDiv('Add a new task with the "+" Button!', "Here's a description for the task", "01/01/01", "!!!", currentProject);
 addCheckBoxEventListener();
 
 $(function () {
