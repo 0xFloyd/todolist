@@ -142,3 +142,6 @@ const formatDate = (date) => {
     newDate = newDate[1] + '/' + newDate[2] + '/' + newDate[0];
     return newDate;
 };
+
+localStorage.setItem("todos", JSON.stringify(todos));
+localStorage.setItem("projects", projects);
