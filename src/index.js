@@ -60,7 +60,6 @@ const addProject = (e) => {
 };
 
 const checkBoxClicked = (e) => {
-    let currentTaskListTitle = document.getElementById("allTasksContainer");
     let completedTaskListTitle = document.getElementById("completedTasks");
     let taskDiv = (e.target.parentNode.parentNode);
     let testDiv = e.target.parentNode.parentNode.children[1].firstChild.innerHTML;      //complicated way to return task name from task checkbox that was clicked 
