@@ -99,6 +99,7 @@ const changeActiveProjectDisplayed = (e) => {
     console.log("Active project changed");
     let elementID = e.target.id;
     let elementIDTitle = elementID.slice(7);
+    currentProject = elementIDTitle;
     activeDisplayedProject.innerHTML = elementIDTitle;
     clearTasks();
     console.log(elementIDTitle);
@@ -143,5 +144,3 @@ const formatDate = (date) => {
     return newDate;
 };
 
-localStorage.setItem("todos", JSON.stringify(todos));
-localStorage.setItem("projects", projects);
