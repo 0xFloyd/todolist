@@ -7,7 +7,7 @@ let projects = [];
 let todos = [];
 let currentProject = newProject("Project 1");
 currentProject = currentProject.projectID.slice(7);
-//allProjects.push(currentProject);
+projects.push(currentProject);
 let activeDisplayedProject = document.getElementById("activeProject");
 //activeDisplayedProject.innerHTML = currentProject;
 
@@ -20,7 +20,9 @@ const addProjectTask = (e) => {
     let taskPriority = submitForm.elements[3].value;
     let todoArray = [taskTitle,
         taskDescription, taskDate, taskPriority, currentProject];
+    console.log(todoArray);
     todos.push(todoArray);
+    console.log(todos);
     let temporaryTask = newTaskDiv(taskTitle, taskDescription, taskDate, taskPriority, currentProject);
     submitForm.reset();
     $('#addTaskModal').modal('hide');
@@ -94,10 +96,12 @@ const addCheckBoxEventListener = () => {
 };
 
 const changeActiveProjectDisplayed = (e) => {
+    console.log("Active project changed");
     let elementID = e.target.id;
     let elementIDTitle = elementID.slice(7);
     activeDisplayedProject.innerHTML = elementIDTitle;
     clearTasks();
+    console.log(elementIDTitle);
     for (let i = 0; i < todos.length; i++) {
         if (elementIDTitle == todos[i][4]) {
             newTaskDiv(todos[i][0], todos[i][1], todos[i][2], todos[i][3], todos[i][4]);
@@ -112,11 +116,17 @@ submitForm.addEventListener('submit', addProjectTask);
 let addProjectSubmit = document.getElementById('newProjectSubmit');
 addProjectSubmit.addEventListener('submit', addProject);
 
-let defaultStarterProject = document.getElementById("projectProject 1");
-defaultStarterProject.addEventListener('click', changeActiveProjectDisplayed);
-activeDisplayedProject.innerHTML = defaultStarterProject.innerHTML;
+const loadDefaults = (() => {
+    let defaultTask = ['Add a new task with the "+" Button!', "Here's a description for the task", "01/01/01", "!!!", currentProject]
+    todos.push(defaultTask);
+    newTaskDiv('Add a new task with the "+" Button!', "Here's a description for the task", "01/01/01", "!!!", currentProject);
 
-newTaskDiv('Add a new task with the "+" Button!', "Here's a description for the task", "01/01/01", "!!!", currentProject);
+    let defaultStarterProject = document.getElementById("projectProject 1");
+    defaultStarterProject.addEventListener('click', changeActiveProjectDisplayed);
+    activeDisplayedProject.innerHTML = defaultStarterProject.innerHTML;
+})();
+
+
 addCheckBoxEventListener();
 
 $(function () {
